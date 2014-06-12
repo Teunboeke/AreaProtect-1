@@ -29,7 +29,33 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                 }elseif($args[0] == "delete"){
                     //TODO Remove protected area
                 }elseif($args[0] == "flag"){
-                    //TODO Flags
+                    if($args[1] == "pvp"){
+                        if($args[2] == "enable"){
+                            //TODO Enable PvP in area
+                        }elseif($args[2] == "disable"){
+                            //TODO Disable PvP in area
+                        }else{
+                            $sender->sendMessage("Usage: /areaprotect flag pvp <enable|disable>");
+                        }
+                    }elseif($args[1] == "build"){
+                        if($args[2] == "enable"){
+                            //TODO Enable building of others in area
+                        }elseif($args[2] == "disable"){
+                            //TODO Disable building of others in area
+                        }else{
+                            $sender->sendMessage("Usage: /areaprotect flag build <enable|disable>");
+                        }
+                    }elseif($args[1] == "destroy"){
+                        if($args[2] == "enable"){
+                            //TODO Enable destruction of ather players in area
+                        }elseif($args[2] == "disable"){
+                            //TODO Disable destruction of other players in area
+                        }else{
+                            $sender->sendMessage("Usage: /areaprotect flag destroy <anable|disable>");
+                        }
+                    }else{
+                        $sender->sendMessage("Usage: /areaprotect flag <pvp|build|destroy>");
+                    }
                 }else{
                     $sender->sendMessage("Usage: /areaprotect <pos1|pos2|protect|flag|delete> [name]");
                 }
