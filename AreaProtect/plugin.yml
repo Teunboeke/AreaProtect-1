@@ -1,0 +1,18 @@
+name: AreaProtect
+main: AreaProtect\Main
+version: 1.0.0dev
+api: [1.0.0]
+
+load: POSTWORLD
+authors: [Comedyman937]
+description: Protect PocketMine-MP Areas!
+
+commands:
+    areaprotect:
+        description: "Protect Your Area!"
+        usage: "/areaprotect <pos1|pos2|protect|flag|delete> [name]"
+        permission: areaprotect.command.areaprotect
+permissions:
+    areaprotect.command.areaprotect:
+        description: "Allows players to protect areas"
+        default: true
