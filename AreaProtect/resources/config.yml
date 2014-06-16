@@ -1,0 +1,8 @@
+#Main Configuration For AreaProtect
+MaxAreas: 1
+MaxChunks: 4
+
+PreSets:
+    PvP: true
+    Build: false
+    Destroy: false
