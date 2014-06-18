@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS areaprotect_data (
   owner VARCHAR(16),
   members VARCHAR(80),
-  flags VARCHAR(75)
   x1 INT,
   y1 INT,
   z1 INT,
