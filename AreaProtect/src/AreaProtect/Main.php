@@ -15,8 +15,8 @@ use pocketmine\Player;
 clas Main extends PluginBase implements Listener, CommandExecutor{
     public function onEnable(){
         if(!file_exists($this->plugin->getDataFolder() . "Areas/")){
-			@mkdir($this->plugin->getDataFolder() . "Areas/");
-		}
+		@mkdir($this->plugin->getDataFolder() . "Areas/");
+	}
         $this->getLogger()->log("[AreaProtect] AreaProtect Loaded!");
     }
     
@@ -33,21 +33,21 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                     }elseif(file_exists($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml")){
                         $sender->sendMessage("[AreaProtect] An area with that name already exists!");
                     }else{
-		                $data = new Config($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml", Config::YAML);
-		                $name = $player->getName();
-		                $data->set("owner", $name);
-		                $data->set("members", null);
-		                $data->set("x1", $x1);
-		                $data->set("y1", $y1);
-		                $data->set("z1", $z1);
-		                $data->set("x2", $x2);
-		                $data->set("y2", $y2);
-		                $data->set("z2", $z2);
-		                $data->set("pvp", null);
-		                $data->set("build", null);
-		                $data->set("destroy", null);
-		                $data->save();
-		                $sender->sendMessage("[AreaProtect] Your area has been created!");
+		        $data = new Config($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml", Config::YAML);
+		        $name = $player->getName();
+		        $data->set("owner", $name);
+		        $data->set("members", null);
+		        $data->set("x1", $x1);
+		        $data->set("y1", $y1);
+		        $data->set("z1", $z1);
+		        $data->set("x2", $x2);
+		        $data->set("y2", $y2);
+		        $data->set("z2", $z2);
+		        $data->set("pvp", null);
+		        $data->set("build", null);
+		        $data->set("destroy", null);
+		        $data->save();
+		        $sender->sendMessage("[AreaProtect] Your area has been created!");
                     }
                 }elseif($args[0] == "delete"){
                     if($args[1] == null){
@@ -67,13 +67,25 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                             if($args[3] == null){
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
-                                //TODO Change, check owners, etc.
+                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                    	        }elseif(/* $sender doesnt own $args[3] */){
+                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    	        }else{
+                    	        	//TODO Update flag
+                    	        }
                             }
                         }elseif($args[2] == "disable"){
                             if($args[3] == null){
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
-                                //TODO Change, check owners, etc.
+                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                    	        }elseif(/* $sender doesnt own $args[3] */){
+                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    	        }else{
+                    	        	//TODO Update flag
+                    	        }
                             }
                         }else{
                             $sender->sendMessage("Usage: /areaprotect flag pvp <enable|disable> [name]");
@@ -83,13 +95,25 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                             if($args[3] == null){
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
-                                //TODO Change, check owners, etc.
+                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                    	        }elseif(/* $sender doesnt own $args[3] */){
+                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    	        }else{
+                    	        	//TODO Update flag
+                    	        }
                             }
                         }elseif($args[2] == "disable"){
                             if($args[3] == null){
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
-                                //TODO Change, check owners, etc.
+                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                    	        }elseif(/* $sender doesnt own $args[3] */){
+                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    	        }else{
+                    	        	//TODO Update flag
+                    	        }
                             }
                         }else{
                             $sender->sendMessage("Usage: /areaprotect flag build <enable|disable> [name]");
@@ -99,13 +123,25 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                             if($args[3] == null){
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
-                                //TODO Change, check owners, etc.
+                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                    	        }elseif(/* $sender doesnt own $args[3] */){
+                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    	        }else{
+                    	        	//TODO Update flag
+                    	        }
                             }
                         }elseif($args[2] == "disable"){
                             if($args[3] == null){
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
-                                //TODO Change, check owners, etc.
+                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                    	        }elseif(/* $sender doesnt own $args[3] */){
+                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    	        }else{
+                    	        	//TODO Update flag
+                    	        }
                             }
                         }else{
                             $sender->sendMessage("Usage: /areaprotect flag destroy <enable|disable> [name]");
