@@ -68,7 +68,7 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
                                 }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	        }elseif(/* $sender doesnt own $args[3] */){
                     	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     	        }else{
@@ -80,7 +80,7 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
                                 }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	        }elseif(/* $sender doesnt own $args[3] */){
                     	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     	        }else{
@@ -96,7 +96,7 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
                                 }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	        }elseif(/* $sender doesnt own $args[3] */){
                     	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     	        }else{
@@ -108,7 +108,7 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
                                 }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	        }elseif(/* $sender doesnt own $args[3] */){
                     	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     	        }else{
@@ -124,7 +124,7 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
                                 }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	        }elseif(/* $sender doesnt own $args[3] */){
                     	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     	        }else{
@@ -136,7 +136,7 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                                 $sender->sendMessage("[AreaProtect] You must specify an area name!");
                             }else{
                                 }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	        }elseif(/* $sender doesnt own $args[3] */){
                     	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     	        }else{
