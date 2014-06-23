@@ -60,7 +60,6 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                         @unlink($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml");
                         $sender->sendMessage("[AreaProtect] Your area has been deleted!");
                     }
-                }
                 }elseif($args[0] == "flag"){
                     if($args[1] == "pvp"){
                         if($args[2] == "enable"){
@@ -156,8 +155,21 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
         }
     }
     
+    public function onAttack(){
+    	//Player vs Player actions are not yet implemented on PocketMine-MP Alpha_1.4.0
+    }
+    
+    public function onBuild(){
+    	//TODO check if in an area, if owner, flag status, etc.
+    }
+    
+    public function onDestroy(){
+    	//TODO check if in an area, if owner, flag status, etc.
+    }
+    
     public function onDisable(){
         $this->getLogger()->log("[AreaProtect] AreaProtect Unloaded!");
     }
 }
+
 ?>
