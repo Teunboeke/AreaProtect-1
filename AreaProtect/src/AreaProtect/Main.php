@@ -3,7 +3,7 @@
 namespace AreaProtect;
 
 use pocketmine\plugin\PluginBase;
-//use pocketmine\player\Position; ?
+use pocketmine\level\Position;
 use pocketmine\level\Level;
 use pocketmine\command\Command;
 use pocketmine\command\CommandExecutor;
@@ -14,6 +14,9 @@ use pocketmine\Player;
 
 clas Main extends PluginBase implements Listener, CommandExecutor{
     public function onEnable(){
+        if(!file_exists($this->plugin->getDataFolder() . "Areas/")){
+			@mkdir($this->plugin->getDataFolder() . "Areas/");
+		}
         $this->getLogger()->log("[AreaProtect] AreaProtect Loaded!");
     }
     
@@ -25,33 +28,87 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                 }elseif($args[0] == "pos2"){
                     //TODO Get players position
                 }elseif($args[0] == "protect"){
-                    //TODO Create protected area
+                    if($args[1] == null){
+                        $sender->sendMessage("[AreaProtect] You must specify an area name!");
+                    }elseif(file_exists($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml")){
+                        $sender->sendMessage("[AreaProtect] An area with that name already exists!");
+                    }else{
+		                $data = new Config($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml", Config::YAML);
+		                $name = $player->getName();
+		                $data->set("owner", $name);
+		                $data->set("members", null);
+		                $data->set("x1", $x1);
+		                $data->set("y1", $y1);
+		                $data->set("z1", $z1);
+		                $data->set("x2", $x2);
+		                $data->set("y2", $y2);
+		                $data->set("z2", $z2);
+		                $data->set("pvp", null);
+		                $data->set("build", null);
+		                $data->set("destroy", null);
+		                $data->save();
+		                $sender->sendMessage("[AreaProtect] Your area has been created!");
+                    }
                 }elseif($args[0] == "delete"){
-                    //TODO Remove protected area
+                    if($args[1] == null){
+                        $sender->sendMessage("[AreaProtect] You must specify an area name!");
+                    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml")){
+                        $sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
+                    }elseif(/* $sender doesnt own $args[1] */){
+                        $sender->sendMessage("[AreaProtect] You do not own the area " . $args[1] . "!");
+                    }else{
+                        @unlink($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml");
+                        $sender->sendMessage("[AreaProtect] Your area has been deleted!");
+                    }
+                }
                 }elseif($args[0] == "flag"){
                     if($args[1] == "pvp"){
                         if($args[2] == "enable"){
-                            //TODO Enable PvP in area
+                            if($args[3] == null){
+                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
+                            }else{
+                                //TODO Change, check owners, etc.
+                            }
                         }elseif($args[2] == "disable"){
-                            //TODO Disable PvP in area
+                            if($args[3] == null){
+                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
+                            }else{
+                                //TODO Change, check owners, etc.
+                            }
                         }else{
-                            $sender->sendMessage("Usage: /areaprotect flag pvp <enable|disable>");
+                            $sender->sendMessage("Usage: /areaprotect flag pvp <enable|disable> [name]");
                         }
                     }elseif($args[1] == "build"){
                         if($args[2] == "enable"){
-                            //TODO Enable building of others in area
+                            if($args[3] == null){
+                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
+                            }else{
+                                //TODO Change, check owners, etc.
+                            }
                         }elseif($args[2] == "disable"){
-                            //TODO Disable building of others in area
+                            if($args[3] == null){
+                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
+                            }else{
+                                //TODO Change, check owners, etc.
+                            }
                         }else{
-                            $sender->sendMessage("Usage: /areaprotect flag build <enable|disable>");
+                            $sender->sendMessage("Usage: /areaprotect flag build <enable|disable> [name]");
                         }
                     }elseif($args[1] == "destroy"){
                         if($args[2] == "enable"){
-                            //TODO Enable destruction of ather players in area
+                            if($args[3] == null){
+                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
+                            }else{
+                                //TODO Change, check owners, etc.
+                            }
                         }elseif($args[2] == "disable"){
-                            //TODO Disable destruction of other players in area
+                            if($args[3] == null){
+                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
+                            }else{
+                                //TODO Change, check owners, etc.
+                            }
                         }else{
-                            $sender->sendMessage("Usage: /areaprotect flag destroy <anable|disable>");
+                            $sender->sendMessage("Usage: /areaprotect flag destroy <enable|disable> [name]");
                         }
                     }else{
                         $sender->sendMessage("Usage: /areaprotect flag <pvp|build|destroy>");
@@ -67,3 +124,4 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
         $this->getLogger()->log("[AreaProtect] AreaProtect Unloaded!");
     }
 }
+?>
