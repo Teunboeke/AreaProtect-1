@@ -28,8 +28,10 @@ class Main extends PluginBase implements Listener, CommandExecutor{
             case "areaprotect":
                 if($args[0] == "pos1"){
                     $pos1 = $sender->getPosition();
+                    $sender->sendMessage("[AreaProtect] Position 1 set!");
                 }elseif($args[0] == "pos2"){
                     $pos2 = $sender->getPosition();
+                    $sender->sendMessage("[AreaProtect] Position 2 set!");
                 }elseif($args[0] == "protect"){
                     if($args[1] == null){
                         $sender->sendMessage("[AreaProtect] You must specify an area name!");
@@ -48,8 +50,12 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 		        	$data->set("destroy", $this->getConfig()->get("destroy"));
 		        	$data->save();
 		        	$sender->sendMessage("[AreaProtect] Your area has been created!");
+                    	}elseif(isset($pos1)){
+                    		$sender->sendMessage("[AreaProtect] Position 1 not set!");
+                    	}elseif(isset($pos2)){
+                    		$sender->sendMessage("[AreaProtect] Position 2 not set!");
                     	}else{
-                    		$sender->sendMessage("[AreaProtect] Unable to find positions!\nPlease reset the positions using /areaprotect pos1 and /areaprotect pos2");
+                    		$sender->sendMessage("[AreaProtect] Position 1 and 2 not set!");
                     	}
                     }
                 }elseif($args[0] == "delete"){
