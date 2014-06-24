@@ -12,13 +12,14 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\Player;
 
-clas Main extends PluginBase implements Listener, CommandExecutor{
+class Main extends PluginBase implements Listener, CommandExecutor{
     public function onEnable(){
     	$this->saveDefaultConfig();
         $this->getResource("config.yml");
         if(!file_exists($this->plugin->getDataFolder() . "Areas/")){
 		@mkdir($this->plugin->getDataFolder() . "Areas/");
 	}
+	$this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getLogger()->log("[AreaProtect] AreaProtect Loaded!");
     }
     
@@ -203,15 +204,33 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
         }
     }
     
+    /**
+     * @param PlayerAttackEvent $event
+     *
+     * @priority       NORMAL
+     * @ignoreCanceled false
+     */
     public function onAttack(){
     	//Player vs Player actions are not yet implemented on PocketMine-MP Alpha_1.4.0
     }
     
-    public function onBuild(){
+    /**
+     * @param PlayerInteractEvent $event
+     *
+     * @priority       NORMAL
+     * @ignoreCanceled false
+     */
+    public function onBuild(PlayerInteractEvent $event){
     	//TODO check if in an area, if owner, flag status, etc.
     }
     
-    public function onDestroy(){
+    /**
+     * @param PlayerInteractEvent $event
+     *
+     * @priority       NORMAL
+     * @ignoreCanceled false
+     */
+    public function onDestroy(PlayerInteractEvent $event){
     	//TODO check if in an area, if owner, flag status, etc.
     }
     
