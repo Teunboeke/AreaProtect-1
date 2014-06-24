@@ -54,94 +54,110 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                         $sender->sendMessage("[AreaProtect] You must specify an area name!");
                     }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml")){
                         $sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
-                    }elseif(/* $sender doesnt own $args[1] */){
-                        $sender->sendMessage("[AreaProtect] You do not own the area " . $args[1] . "!");
                     }else{
-                        @unlink($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml");
-                        $sender->sendMessage("[AreaProtect] Your area has been deleted!");
+                    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml";
+                    	$protection_data = new Config($path, Config::YAML);
+                    	if($protection_data->get("owner") == $sender->getName()){
+                    		@unlink($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml");
+                        	$sender->sendMessage("[AreaProtect] Your area has been deleted!");
+                    	}else{
+                    		$sender->sendMessage("[AreaProtect] You do not own the area " . $args[1] . "!");
+                    	}
                     }
                 }elseif($args[0] == "flag"){
                     if($args[1] == "pvp"){
                         if($args[2] == "enable"){
                             if($args[3] == null){
-                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
-                            }else{
-                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
-                    	        }elseif(/* $sender doesnt own $args[3] */){
-                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
-                    	        }else{
-                    	        	//TODO Update flag
-                    	        }
-                            }
+                        	$sender->sendMessage("[AreaProtect] You must specify an area name!");
+                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                        	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
+                    	    }else{
+                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
+                    		$protection_data = new Config($path, Config::YAML);
+                    		if($protection_data->get("owner") == $sender->getName()){
+                    			//TODO Update Flag
+                    		}else{
+                    			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    		}
+                    	    }
                         }elseif($args[2] == "disable"){
                             if($args[3] == null){
-                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
-                            }else{
-                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
-                    	        }elseif(/* $sender doesnt own $args[3] */){
-                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
-                    	        }else{
-                    	        	//TODO Update flag
-                    	        }
-                            }
+                        	$sender->sendMessage("[AreaProtect] You must specify an area name!");
+                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                        	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
+                    	    }else{
+                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
+                    		$protection_data = new Config($path, Config::YAML);
+                    		if($protection_data->get("owner") == $sender->getName()){
+                    			//TODO Update Flag
+                    		}else{
+                    			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    		}
+                    	    }
                         }else{
                             $sender->sendMessage("Usage: /areaprotect flag pvp <enable|disable> [name]");
                         }
                     }elseif($args[1] == "build"){
                         if($args[2] == "enable"){
                             if($args[3] == null){
-                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
-                            }else{
-                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
-                    	        }elseif(/* $sender doesnt own $args[3] */){
-                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
-                    	        }else{
-                    	        	//TODO Update flag
-                    	        }
-                            }
+                        	$sender->sendMessage("[AreaProtect] You must specify an area name!");
+                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                        	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
+                    	    }else{
+                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
+                    		$protection_data = new Config($path, Config::YAML);
+                    		if($protection_data->get("owner") == $sender->getName()){
+                    			//TODO Update Flag
+                    		}else{
+                    			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    		}
+                    	    }
                         }elseif($args[2] == "disable"){
                             if($args[3] == null){
-                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
-                            }else{
-                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
-                    	        }elseif(/* $sender doesnt own $args[3] */){
-                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
-                    	        }else{
-                    	        	//TODO Update flag
-                    	        }
-                            }
+                        	$sender->sendMessage("[AreaProtect] You must specify an area name!");
+                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                        	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
+                    	    }else{
+                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
+                    		$protection_data = new Config($path, Config::YAML);
+                    		if($protection_data->get("owner") == $sender->getName()){
+                    			//TODO Update Flag
+                    		}else{
+                    			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    		}
+                    	    }
                         }else{
                             $sender->sendMessage("Usage: /areaprotect flag build <enable|disable> [name]");
                         }
                     }elseif($args[1] == "destroy"){
                         if($args[2] == "enable"){
                             if($args[3] == null){
-                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
-                            }else{
-                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
-                    	        }elseif(/* $sender doesnt own $args[3] */){
-                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
-                    	        }else{
-                    	        	//TODO Update flag
-                    	        }
-                            }
+                        	$sender->sendMessage("[AreaProtect] You must specify an area name!");
+                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                        	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
+                    	    }else{
+                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
+                    		$protection_data = new Config($path, Config::YAML);
+                    		if($protection_data->get("owner") == $sender->getName()){
+                    			//TODO Update Flag
+                    		}else{
+                    			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    		}
+                    	    }
                         }elseif($args[2] == "disable"){
                             if($args[3] == null){
-                                $sender->sendMessage("[AreaProtect] You must specify an area name!");
-                            }else{
-                                }if(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
-                                	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
-                    	        }elseif(/* $sender doesnt own $args[3] */){
-                    	        	$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
-                    	        }else{
-                    	        	//TODO Update flag
-                    	        }
-                            }
+                        	$sender->sendMessage("[AreaProtect] You must specify an area name!");
+                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                        	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
+                    	    }else{
+                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
+                    		$protection_data = new Config($path, Config::YAML);
+                    		if($protection_data->get("owner") == $sender->getName()){
+                    			//TODO Update Flag
+                    		}else{
+                    			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
+                    		}
+                    	    }
                         }else{
                             $sender->sendMessage("Usage: /areaprotect flag destroy <enable|disable> [name]");
                         }
