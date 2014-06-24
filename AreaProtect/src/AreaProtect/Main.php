@@ -27,30 +27,30 @@ class Main extends PluginBase implements Listener, CommandExecutor{
         switch($cmd->getName()){
             case "areaprotect":
                 if($args[0] == "pos1"){
-                    //TODO Get senders position
+                    $pos1 = $sender->getPosition();
                 }elseif($args[0] == "pos2"){
-                    //TODO Get players position
+                    $pos2 = $sender->getPosition();
                 }elseif($args[0] == "protect"){
                     if($args[1] == null){
                         $sender->sendMessage("[AreaProtect] You must specify an area name!");
                     }elseif(file_exists($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml")){
                         $sender->sendMessage("[AreaProtect] An area with that name already exists!");
                     }else{
-		        $data = new Config($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml", Config::YAML);
-		        $name = $player->getName();
-		        $data->set("owner", $name);
-		        $data->set("members", null);
-		        $data->set("x1", $x1);
-		        $data->set("y1", $y1);
-		        $data->set("z1", $z1);
-		        $data->set("x2", $x2);
-		        $data->set("y2", $y2);
-		        $data->set("z2", $z2);
-		        $data->set("pvp", $this->getConfig()->get("pvp"));
-		        $data->set("build", $this->getConfig()->get("build"));
-		        $data->set("destroy", $this->getConfig()->get("destroy"));
-		        $data->save();
-		        $sender->sendMessage("[AreaProtect] Your area has been created!");
+                    	if(isset($pos1) and isset($pos2))
+		        	$data = new Config($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml", Config::YAML);
+		        	$name = $player->getName();
+		        	$data->set("owner", $name);
+		        	$data->set("members", null);
+		        	$data->set("pos1", $pos1);
+		        	$data->set("pos2", $pos2);
+		        	$data->set("pvp", $this->getConfig()->get("pvp"));
+		        	$data->set("build", $this->getConfig()->get("build"));
+		        	$data->set("destroy", $this->getConfig()->get("destroy"));
+		        	$data->save();
+		        	$sender->sendMessage("[AreaProtect] Your area has been created!");
+                    	}else{
+                    		$sender->sendMessage("[AreaProtect] Unable to find positions!\nPlease reset the positions using /areaprotect pos1 and /areaprotect pos2");
+                    	}
                     }
                 }elseif($args[0] == "delete"){
                     if($args[1] == null){
