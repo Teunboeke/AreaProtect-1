@@ -14,6 +14,8 @@ use pocketmine\Player;
 
 clas Main extends PluginBase implements Listener, CommandExecutor{
     public function onEnable(){
+    	$this->saveDefaultConfig();
+        $this->getResource("config.yml");
         if(!file_exists($this->plugin->getDataFolder() . "Areas/")){
 		@mkdir($this->plugin->getDataFolder() . "Areas/");
 	}
