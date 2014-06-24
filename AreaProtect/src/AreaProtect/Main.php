@@ -45,9 +45,9 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
 		        $data->set("x2", $x2);
 		        $data->set("y2", $y2);
 		        $data->set("z2", $z2);
-		        $data->set("pvp", null);
-		        $data->set("build", null);
-		        $data->set("destroy", null);
+		        $data->set("pvp", $this->getConfig()->get("pvp"));
+		        $data->set("build", $this->getConfig()->get("build"));
+		        $data->set("destroy", $this->getConfig()->get("destroy"));
 		        $data->save();
 		        $sender->sendMessage("[AreaProtect] Your area has been created!");
                     }
