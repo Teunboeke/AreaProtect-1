@@ -77,7 +77,12 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                     	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
                     		$protection_data = new Config($path, Config::YAML);
                     		if($protection_data->get("owner") == $sender->getName()){
-                    			//TODO Update Flag
+                    			if($protection_data->get("pvp") === true){
+                    				$sender->sendMessage("[AreaProtect] PvP is already enabled in " . $args[3] . "!");
+                    			}else{
+                    				$protection_data->set("pvp", true);
+                    				$sender->sendMessage("[AreaProtect] PvP is now enabled in " . $args[3] . "!");
+                    			}
                     		}else{
                     			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     		}
@@ -91,7 +96,12 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                     	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
                     		$protection_data = new Config($path, Config::YAML);
                     		if($protection_data->get("owner") == $sender->getName()){
-                    			//TODO Update Flag
+                    			if($protection_data->get("pvp") === false){
+                    				$sender->sendMessage("[AreaProtect] PvP is already disabled in " . $args[3] . "!");
+                    			}else{
+                    				$protection_data->set("pvp", false);
+                    				$sender->sendMessage("[AreaProtect] PvP is now disabled in " . $args[3] . "!");
+                    			}
                     		}else{
                     			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     		}
@@ -109,7 +119,12 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                     	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
                     		$protection_data = new Config($path, Config::YAML);
                     		if($protection_data->get("owner") == $sender->getName()){
-                    			//TODO Update Flag
+                    			if($protection_data->get("build") === true){
+                    				$sender->sendMessage("[AreaProtect] Public building is already enabled in " . $args[3] . "!");
+                    			}else{
+                    				$protection_data->set("build", true);
+                    				$sender->sendMessage("[AreaProtect] Public building is now enabled in " . $args[3] . "!");
+                    			}
                     		}else{
                     			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     		}
@@ -123,7 +138,12 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                     	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
                     		$protection_data = new Config($path, Config::YAML);
                     		if($protection_data->get("owner") == $sender->getName()){
-                    			//TODO Update Flag
+                    			if($protection_data->get("build") === false){
+                    				$sender->sendMessage("[AreaProtect] Public building is already disabled in " . $args[3] . "!");
+                    			}else{
+                    				$protection_data->set("build", false);
+                    				$sender->sendMessage("[AreaProtect] Public building is now disabled in " . $args[3] . "!");
+                    			}
                     		}else{
                     			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     		}
@@ -141,7 +161,12 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                     	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
                     		$protection_data = new Config($path, Config::YAML);
                     		if($protection_data->get("owner") == $sender->getName()){
-                    			//TODO Update Flag
+                    			if($protection_data->get("destroy") === true){
+                    				$sender->sendMessage("[AreaProtect] Public destruction is already enabled in " . $args[3] . "!");
+                    			}else{
+                    				$protection_data->set("destroy", true);
+                    				$sender->sendMessage("[AreaProtect] Public destruction is now enabled in " . $args[3] . "!");
+                    			}
                     		}else{
                     			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     		}
@@ -155,7 +180,12 @@ clas Main extends PluginBase implements Listener, CommandExecutor{
                     	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
                     		$protection_data = new Config($path, Config::YAML);
                     		if($protection_data->get("owner") == $sender->getName()){
-                    			//TODO Update Flag
+                    			if($protection_data->get("destroy") === false){
+                    				$sender->sendMessage("[AreaProtect] Public destruction is already disabled in " . $args[3] . "!");
+                    			}else{
+                    				$protection_data->set("destroy", false);
+                    				$sender->sendMessage("[AreaProtect] Public destruction is now disabled in " . $args[3] . "!");
+                    			}
                     		}else{
                     			$sender->sendMessage("[AreaProtect] You do not own the area " . $args[3] . "!");
                     		}
