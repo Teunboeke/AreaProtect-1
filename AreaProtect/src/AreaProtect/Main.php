@@ -16,10 +16,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
     public function onEnable(){
     	$this->saveDefaultConfig();
         $this->getResource("config.yml");
-        if(!file_exists($this->plugin->getDataFolder() . "Areas/")){
-		@mkdir($this->plugin->getDataFolder() . "Areas/");
-	}
-	$this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getLogger()->log("[AreaProtect] AreaProtect Loaded!");
     }
     
@@ -39,16 +36,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         $sender->sendMessage("[AreaProtect] An area with that name already exists!");
                     }else{
                     	if(isset($pos1) and isset($pos2))
-		        	$data = new Config($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml", Config::YAML);
-		        	$name = $player->getName();
-		        	$data->set("owner", $name);
-		        	$data->set("members", null);
-		        	$data->set("pos1", $pos1);
-		        	$data->set("pos2", $pos2);
-		        	$data->set("pvp", $this->getConfig()->get("PreSets", "PvP"));
-		        	$data->set("build", $this->getConfig()->get("PreSets", "Build"));
-		        	$data->set("destroy", $this->getConfig()->get("PreSets", "Destroy"));
-		        	$data->save();
+		        	//TODO MySQL Statements
 		        	$sender->sendMessage("[AreaProtect] Your area has been created!");
                     	}elseif(isset($pos1)){
                     		$sender->sendMessage("[AreaProtect] Position 1 not set!");
@@ -61,13 +49,12 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                 }elseif($args[0] == "delete"){
                     if($args[1] == null){
                         $sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml")){
+                    }elseif(/* TODO MySQL Statements */){
                         $sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
                     }else{
-                    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml";
-                    	$protection_data = new Config($path, Config::YAML);
-                    	if($protection_data->get("owner") == $sender->getName()){
-                    		@unlink($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml");
+                    	$owner = ; //TODO MySQL Statements
+                    	if($owner == $sender->getName()){
+                    		//TODO Drop Table
                         	$sender->sendMessage("[AreaProtect] Your area has been deleted!");
                     	}else{
                     		$sender->sendMessage("[AreaProtect] You do not own the area " . $args[1] . "!");
@@ -78,16 +65,16 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         if($args[2] == "enable"){
                             if($args[3] == null){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                    	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	    }else{
-                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
-                    		$protection_data = new Config($path, Config::YAML);
-                    		if($protection_data->get("owner") == $sender->getName()){
-                    			if($protection_data->get("pvp") === true){
+                    		$owner = ; //TODO MySQL Statements
+                    		if($owner == $sender->getName()){
+                    			$pvp = ; //TODO MySQL Statements
+                    			if($pvp === true){
                     				$sender->sendMessage("[AreaProtect] PvP is already enabled in " . $args[3] . "!");
                     			}else{
-                    				$protection_data->set("pvp", true);
+                    				//TODO MySQL Statements
                     				$sender->sendMessage("[AreaProtect] PvP is now enabled in " . $args[3] . "!");
                     			}
                     		}else{
@@ -97,16 +84,16 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         }elseif($args[2] == "disable"){
                             if($args[3] == null){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                    	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	    }else{
-                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
-                    		$protection_data = new Config($path, Config::YAML);
-                    		if($protection_data->get("owner") == $sender->getName()){
-                    			if($protection_data->get("pvp") === false){
+                    	    	$owner = ; //TODO MySQL Statements
+                    		if($owner == $sender->getName()){
+                    			$pvp = ; //TODO MySQL Statements
+                    			if($pvp === false){
                     				$sender->sendMessage("[AreaProtect] PvP is already disabled in " . $args[3] . "!");
                     			}else{
-                    				$protection_data->set("pvp", false);
+                    				//TODO MySQL Statements
                     				$sender->sendMessage("[AreaProtect] PvP is now disabled in " . $args[3] . "!");
                     			}
                     		}else{
@@ -120,16 +107,16 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         if($args[2] == "enable"){
                             if($args[3] == null){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                    	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	    }else{
-                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
-                    		$protection_data = new Config($path, Config::YAML);
-                    		if($protection_data->get("owner") == $sender->getName()){
-                    			if($protection_data->get("build") === true){
+                    	    	$owner = ; //TODO MySQL Statements
+                    		if($owner == $sender->getName()){
+                    			$build = ; //TODO MySQL Statements
+                    			if($build === true){
                     				$sender->sendMessage("[AreaProtect] Public building is already enabled in " . $args[3] . "!");
                     			}else{
-                    				$protection_data->set("build", true);
+                    				//TODO MySQL Statements
                     				$sender->sendMessage("[AreaProtect] Public building is now enabled in " . $args[3] . "!");
                     			}
                     		}else{
@@ -139,16 +126,16 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         }elseif($args[2] == "disable"){
                             if($args[3] == null){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                    	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	    }else{
-                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
-                    		$protection_data = new Config($path, Config::YAML);
-                    		if($protection_data->get("owner") == $sender->getName()){
-                    			if($protection_data->get("build") === false){
+                    	    	$owner = ; //TODO MySQL Statements
+                    		if($owner == $sender->getName()){
+                    			$build = ; //TODO MySQL Statements
+                    			if($build === false){
                     				$sender->sendMessage("[AreaProtect] Public building is already disabled in " . $args[3] . "!");
                     			}else{
-                    				$protection_data->set("build", false);
+                    				//TODO MySQL Statements
                     				$sender->sendMessage("[AreaProtect] Public building is now disabled in " . $args[3] . "!");
                     			}
                     		}else{
@@ -162,16 +149,16 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         if($args[2] == "enable"){
                             if($args[3] == null){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                    	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	    }else{
-                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
-                    		$protection_data = new Config($path, Config::YAML);
-                    		if($protection_data->get("owner") == $sender->getName()){
-                    			if($protection_data->get("destroy") === true){
+                    	    	$owner = ; //TODO MySQL Statements
+                    		if($owner == $sender->getName()){
+                    			$destroy = ; //TODO MySQL Statements
+                    			if($destroy === true){
                     				$sender->sendMessage("[AreaProtect] Public destruction is already enabled in " . $args[3] . "!");
                     			}else{
-                    				$protection_data->set("destroy", true);
+                    				//TODO MySQL Statements
                     				$sender->sendMessage("[AreaProtect] Public destruction is now enabled in " . $args[3] . "!");
                     			}
                     		}else{
@@ -181,16 +168,16 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         }elseif($args[2] == "disable"){
                             if($args[3] == null){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    	    }elseif(!file_exists($this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml")){
+                    	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	    }else{
-                    	    	$path = $this->plugin->getDataFolder() . "Areas/" . $args[3] . ".yml";
-                    		$protection_data = new Config($path, Config::YAML);
-                    		if($protection_data->get("owner") == $sender->getName()){
-                    			if($protection_data->get("destroy") === false){
+                    	    	$owner = ; //TODO MySQL Statements
+                    		if($owner == $sender->getName()){
+                    			$destroy = ; //TODO MySQL Statements
+                    			if($destroy === false){
                     				$sender->sendMessage("[AreaProtect] Public destruction is already disabled in " . $args[3] . "!");
                     			}else{
-                    				$protection_data->set("destroy", false);
+                    				//TODO MySQL Statements
                     				$sender->sendMessage("[AreaProtect] Public destruction is now disabled in " . $args[3] . "!");
                     			}
                     		}else{
