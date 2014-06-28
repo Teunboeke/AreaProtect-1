@@ -17,44 +17,75 @@ class Main extends PluginBase implements Listener, CommandExecutor{
     	$this->saveDefaultConfig();
         $this->getResource("config.yml");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->getLogger()->log("[AreaProtect] AreaProtect Loaded!");
+        $this->getLogger()->info("Connecting to MySQL Database...");
+        //TODO Ping Database
+        if($this->database->connect_error){
+            $this->getLogger()->critical("Couldn't connect to Database: " . $this->database->connect_error);
+        }else{
+            $sql = $this->getResource("mysql.sql");
+            $this->database->query(stream_get_contents($sql));
+            //TODO Schedule repeating MySQL ping
+            $this->getLogger()->info("Connected To Database Successfully!");
+        }
+        $this->getLogger()->info("AreaProtect Loaded!");
     }
     
     public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
         switch($cmd->getName()){
             case "areaprotect":
                 if($args[0] == "pos1"){
-                    $pos1 = $sender->getPosition();
+                    $x1 = $sender->getX();
+                    $y1 = $sender->getY();
+                    $z1 = $sender->getZ();
                     $sender->sendMessage("[AreaProtect] Position 1 set!");
                 }elseif($args[0] == "pos2"){
-                    $pos2 = $sender->getPosition();
+                    $x2 = $sender->getX();
+                    $y2 = $sender->getY();
+                    $z2 = $sender->getZ();
                     $sender->sendMessage("[AreaProtect] Position 2 set!");
                 }elseif($args[0] == "protect"){
                     if($args[1] == null){
                         $sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    }elseif(file_exists($this->plugin->getDataFolder() . "Areas/" . $args[1] . ".yml")){
+                    }elseif($this->database->query("SELECT * FROM areaprotect_areas WHERE name=" . $args[1])){
                         $sender->sendMessage("[AreaProtect] An area with that name already exists!");
                     }else{
-                    	if(isset($pos1) and isset($pos2))
-		        	//TODO MySQL Statements
+                    	if(isset($x1) and isset($z2))
+		        	$owner = $sender->getName();
+		        	$name = $args[1];
+		        	if($this->getConfig()->get("pvp") === true){
+		        	    $pvp = "1";
+		        	}else{
+		        	    $pvp = "0";
+		        	}
+		        	if($this->getConfig()->get("build") === true){
+		        	    $build = "1";
+		        	}else{
+		        	    $build = "0";
+		        	}
+		        	if($this->getConfig()->get("destroy") === true){
+		        	    $destroy = "1";
+		        	}else{
+		        	    $destroy = "0";
+		        	}
+		        	$this->database->query("INSERT INTO areaprotect_areas (owner, name, x1, y1, z1, x2, y2, z2, pvp, build, destroy) VALUES ('" . $owner . "', '" . $name ."', " . intval($x1) . ", " . intval($y1) . ", " . intval($z1) . ", " . intval($x2) . ", " . intval($y2) . ", " . intval($z2) . ", " . $pvp . ", " . $build . ", " . $destroy . ")");
 		        	$sender->sendMessage("[AreaProtect] Your area has been created!");
-                    	}elseif(isset($pos1)){
+                    	}elseif(isset($z2)){
                     		$sender->sendMessage("[AreaProtect] Position 1 not set!");
-                    	}elseif(isset($pos2)){
+                    	}elseif(isset($x1)){
                     		$sender->sendMessage("[AreaProtect] Position 2 not set!");
                     	}else{
                     		$sender->sendMessage("[AreaProtect] Position 1 and 2 not set!");
                     	}
                     }
                 }elseif($args[0] == "delete"){
-                    if($args[1] == null){
+                    if(!isset($args[1])){
                         $sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    }elseif(/* TODO MySQL Statements */){
+                    }elseif($this->database->query("SELECT FROM areaprotect_areas WHERE name=" . $args[1]) === null){
                         $sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
                     }else{
-                    	$owner = ; //TODO MySQL Statements
-                    	if($owner == $sender->getName()){
-                    		//TODO Drop Table
+                    	$owner = $this->database->query("SELECT " . $args[1] . " FROM areaprotect_areas WHERE owner=" . $sender->getName());
+                    	if($owner === true){
+                    		$this->database->query("DELETE FROM areaprotect_areas WHERE name=" $args[1]);
                         	$sender->sendMessage("[AreaProtect] Your area has been deleted!");
                     	}else{
                     		$sender->sendMessage("[AreaProtect] You do not own the area " . $args[1] . "!");
@@ -63,7 +94,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                 }elseif($args[0] == "flag"){
                     if($args[1] == "pvp"){
                         if($args[2] == "enable"){
-                            if($args[3] == null){
+                            if(!isset($args[3])){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
                     	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
@@ -82,7 +113,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                     		}
                     	    }
                         }elseif($args[2] == "disable"){
-                            if($args[3] == null){
+                            if(!isset($args[3])){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
                     	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
@@ -105,7 +136,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         }
                     }elseif($args[1] == "build"){
                         if($args[2] == "enable"){
-                            if($args[3] == null){
+                            if(!isset($args[3])){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
                     	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
@@ -124,7 +155,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                     		}
                     	    }
                         }elseif($args[2] == "disable"){
-                            if($args[3] == null){
+                            if(!isset($args[3])){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
                     	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
@@ -147,7 +178,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         }
                     }elseif($args[1] == "destroy"){
                         if($args[2] == "enable"){
-                            if($args[3] == null){
+                            if(!isset($args[3])){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
                     	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
@@ -166,7 +197,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                     		}
                     	    }
                         }elseif($args[2] == "disable"){
-                            if($args[3] == null){
+                            if(!isset($args[3])){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
                     	    }elseif(/* TODO MySQL Statements */){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
