@@ -273,7 +273,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
     
     public function onDisable(){
     	$this->MySQL->close();
-        $this->getLogger()->info(AreaProtect Unloaded!");
+        $this->getLogger()->info("AreaProtect Unloaded!");
     }
 }
 
