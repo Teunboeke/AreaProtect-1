@@ -7,7 +7,7 @@ use AreaProtect\Main;
 
 class PingMySQL extends PluginTask{
     private $database;
-    public function __construct(Main , \mysql $database){
+    public function __construct(Main $owner, \mysqli $database){
         parent::__construct();
         $this->database = $database;
     }
