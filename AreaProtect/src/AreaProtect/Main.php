@@ -12,12 +12,13 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\Player;
 
+use AreaProtect\MySQL;
+
 class Main extends PluginBase implements Listener, CommandExecutor{
     public function onEnable(){
     	$this->saveDefaultConfig();
         $this->getResource("config.yml");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->getLogger()->info("Connecting to MySQL Database...");
         $this->MySQL = new MySQL($this);
         $this->getLogger()->info("AreaProtect Loaded!");
     }
