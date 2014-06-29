@@ -249,13 +249,18 @@ class Main extends PluginBase implements Listener, CommandExecutor{
     }
     
     /**
-     * @param PlayerInteractEvent $event
+     * @param BlockBreakEvent $event
      *
      * @priority       NORMAL
      * @ignoreCanceled false
      */
-    public function onDestroy(PlayerInteractEvent $event){
-    	//TODO check if in an area, if owner, flag status, etc.
+    public function onDestroy(BlockBreakEvent $event){
+    	$player = $event->getPlayer(); //Is this possible?
+    	if($this->database->query("SELECT * FROM areaprotect_areas WHERE destroy=0"){
+    	    if($player->getX() => $x1 and $player->getY() => y1 and $player->getZ() => $z1 and $player->getX() =< $x2 and $player->getY() =< $y2 and $player->getZ() =< $z2){ //If the player is within an area with destruction disabled
+    	        $player->sendMessage("[AreaProtect] You do not have permission to do that here!");
+    	    }
+    	}
     }
     
     public function onDisable(){
