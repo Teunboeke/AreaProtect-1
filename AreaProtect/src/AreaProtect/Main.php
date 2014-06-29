@@ -264,10 +264,13 @@ class Main extends PluginBase implements Listener, CommandExecutor{
      * @ignoreCanceled false
      */
     public function onDestroy(BlockBreakEvent $event){
-    	$player = $event->getPlayer(); //Is this possible?
+    	$player = $event->getPlayer();
     	foreach($this->MySQL->getAllDestroy() as $area){
-    	    if($this->MySQL->checkDestroy($area) === false){
-    	        //TODO Check if player is inside area and enforce
+    	    $this->MySQL->checkOwner($area);
+    	    $this->MySQL->getPositions($area);
+    	    if($player->getX() >= $x1 and $player->getX() <= $x2 and $player->getY() >= $y1 and $player->getY() <= $y2 and $player->getZ() >= $z1 and $player->getZ() <= $z2){
+    	    	$player->sendMessage("[AreaProtect] You do not have permission to do that here!");
+    	    	$event->setCancelled(true);
     	    }
     	}
     }
