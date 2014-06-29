@@ -37,7 +37,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                     $z2 = $sender->getZ();
                     $sender->sendMessage("[AreaProtect] Position 2 set!");
                 }elseif($args[0] == "protect"){
-                    if($args[1] == null){
+                    if(!isset($args[1])){
                         $sender->sendMessage("[AreaProtect] You must specify an area name!");
                     }elseif($this->database->query("SELECT * FROM areaprotect_areas WHERE name=" . $args[1])){
                         $sender->sendMessage("[AreaProtect] An area with that name already exists!");
@@ -74,7 +74,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                 }elseif($args[0] == "delete"){
                     if(!isset($args[1])){
                         $sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    }elseif($this->MySQL->checkExists($args[1]) === null){
+                    }elseif($this->MySQL->checkExists($args[1]) === false){
                         $sender->sendMessage("[AreaProtect] Unable to find the area" . $args[1] . "!");
                     }else{
                     	$player = $sender->getName();
@@ -248,13 +248,21 @@ class Main extends PluginBase implements Listener, CommandExecutor{
     }
     
     /**
-     * @param PlayerInteractEvent $event
+     * @param BlockPlaceEvent $event
      *
      * @priority       NORMAL
      * @ignoreCanceled false
      */
-    public function onBuild(PlayerInteractEvent $event){
-    	//TODO check if in an area, if owner, flag status, etc.
+    public function onBuild(BlockPlaceEvent $event){
+    	$player = $event->getPlayer();
+    	foreach($this->MySQL->getAllBuild() as $area){
+    	    $owner = $this->MySQL->checkOwner($area);
+    	    $this->MySQL->getPositions($area);
+    	    if($player->getX() >= $x1 and $player->getX() <= $x2 and $player->getY() >= $y1 and $player->getY() <= $y2 and $player->getZ() >= $z1 and $player->getZ() <= $z2 and $owner != $player->getName()){
+    	        $player->sendMessage("[AreaProtect] You do not have permission to do that here!");
+    	        $event->setCancelled(true);
+    	    }
+    	}
     }
     
     /**
@@ -266,9 +274,9 @@ class Main extends PluginBase implements Listener, CommandExecutor{
     public function onDestroy(BlockBreakEvent $event){
     	$player = $event->getPlayer();
     	foreach($this->MySQL->getAllDestroy() as $area){
-    	    $this->MySQL->checkOwner($area);
+    	    $owner = $this->MySQL->checkOwner($area);
     	    $this->MySQL->getPositions($area);
-    	    if($player->getX() >= $x1 and $player->getX() <= $x2 and $player->getY() >= $y1 and $player->getY() <= $y2 and $player->getZ() >= $z1 and $player->getZ() <= $z2){
+    	    if($player->getX() >= $x1 and $player->getX() <= $x2 and $player->getY() >= $y1 and $player->getY() <= $y2 and $player->getZ() >= $z1 and $player->getZ() <= $z2 and $owner != $player->getName()){
     	    	$player->sendMessage("[AreaProtect] You do not have permission to do that here!");
     	    	$event->setCancelled(true);
     	    }
