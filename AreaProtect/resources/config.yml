@@ -1,5 +1,6 @@
 #Main Configuration For AreaProtect
-PreSets:
-    PvP: true
-    Build: false
-    Destroy: false
+
+#PreSets
+  PvP: true
+  Build: false
+  Destroy: false
