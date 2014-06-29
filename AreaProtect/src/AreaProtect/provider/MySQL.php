@@ -30,31 +30,54 @@ class MySQL implements DataProvider{
     }
     
     public function createArea($owner, $name, $x1, $y1, $z1, $x2, $y2, $z2, $pvp, $build, $destroy){
-        
+        $this->owner = $owner;
+        $this->name = $name;
+        $this->x1 = $x1;
+        $this->y1 = $y1;
+        $this->z1 = $z1;
+        $this->x2 = $x2;
+        $this->y2 = $y2;
+        $this->z2 = $z2;
+        $this->pvp = $pvp;
+        $this->build = $build;
+        $this->destroy = $destroy;
+        $this->database->query("INSERT INTO areaprotect_areas (owner, name, x1, y1, z1, x2, y2, z2, pvp, build, destroy) VALUES ('".$this->owner."', ".$this->name.", ".$this->x1.", "$this->y1", ".$this->z1.", ".$this->x2.", ".$this->y2.", ".$this->z2.", ".$this->pvp.", ".$this->build.", ".$this->destroy.")");
     }
     
     public function checkExists($args[1], $args[3]){ //I think Ill need to change this a little but hopefully not
-        
+        $this->area1 = $args[1];
+        $this->area2 = $args[3];
+        if(isset($this->area1)){
+            $area = $this->area1;
+        }elseif(isset($this->area2)){
+            $area = $this->area2;
+        }
+        $this->database->query("SELECT * FROM areaprotect_areas WHERE name=".$area);
     }
     
     public function checkOwner($area){
-        
+        $this->area = $area;
+        $this->database->query("SELECT :owner FROM areaprotect_areas WHERE name=".$this->area); //Not 100% sure how to do this
     }
     
     public function deleteArea($area){
-        
+        $this->area = $area;
+        $this->database->query("DELETE FROM areaprotect_areas WHERE name=".$this->area);
     }
     
     public function checkPVP($area){
-        
+        $this->area = $area;
+        $this->database->query("SELECT :pvp FROM areaprotect_areas WHERE NAME=".$this->area);
     }
     
     public function enablePVP($area){
-        
+        $this->area = $area;
+        $this->database->query("UPDATE areaprotect_areas SET pvp=1 WHERE name=".$this->area);
     }
     
     public function disablePVP($area){
-        
+        $this->area = $area;
+        $this->database->query("UPDATE areaprotect_areas SET pvp=0 WHERE name=".$this->area);
     }
     
     public function checkBuild($area){
