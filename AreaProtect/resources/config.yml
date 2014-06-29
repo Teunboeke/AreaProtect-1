@@ -1,6 +1,17 @@
 #Main Configuration For AreaProtect
 
+#MySQL Database
+Host: 127.0.0.1
+Port: 3306
+User: user
+Password: password
+DatabaseName: db_name
+#All Information Is Saved Via MySQL For This Plugin
+
 #PreSets
   PvP: true
   Build: false
   Destroy: false
+
+#- Good Free MySQL Database Hosts
+#-- HelioHost.org <- Webserver AND Unlimited MySQL Databases
