@@ -1,11 +1,11 @@
 #Main Configuration For AreaProtect
 
 #MySQL Database
-Host: 127.0.0.1
+Host: "127.0.0.1"
 Port: 3306
-User: user
-Password: password
-DatabaseName: db_name
+User: "User"
+Password: "Password"
+DatabaseName: "DatabaseName"
 #All Information Is Saved Via MySQL For This Plugin
 
 #PreSets
