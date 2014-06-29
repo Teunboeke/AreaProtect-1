@@ -67,7 +67,7 @@ class MySQL implements DataProvider{
     
     public function checkPVP($area){
         $this->area = $area;
-        $this->database->query("SELECT :pvp FROM areaprotect_areas WHERE NAME=".$this->area);
+        $this->database->query("SELECT pvp FROM areaprotect_areas WHERE name=".$this->area);
     }
     
     public function enablePVP($area){
@@ -81,39 +81,45 @@ class MySQL implements DataProvider{
     }
     
     public function checkBuild($area){
-        
+        $this->area = $area;
+        $this->database->query("SELECT build FROM areaprotect_areas WHERE name=".$this->area);
     }
     
     public function enableBuild($area){
-        
+        $this->area = $area;
+        $this->database->query("UPDATE areaprotect_areas SET build=1 WHERE name=".$this->area);
     }
     
     public function disableBuild($area){
-        
+        $this->area = $area;
+        $this->database->query("UPDATE areaprotect_areas SET build=0 WHERE name=".$this->area);
     }
     
     public function checkDestroy($area){
-        
+        $this->area = $area;
+        $this->database->query("SELECT destroy FROM areaprotect_areas WHERE name=".$this->area);
     }
     
     public function enableDestroy($area){
-        
+        $this->area = $area;
+        $this->database->query("UPDATE areaprotect_areas SET destroy=1 WHERE name=".$this->area);
     }
     
     public function disableDestroy($area){
-        
+        $this->area = $area;
+        $this->database->query("UPDATE areaprotect_areas SET destroy=0 WHERE name=".$this->area);
     }
     
     public function getAllPVP(){
-        
+        $this->database->query("SELECT * FROM areaprotect_areas WHERE pvp=0");
     }
     
     public function getAllBuild(){
-        
+        $this->database->query("SELECT * FROM areaprotect_areas WHERE build=0");
     }
     
     public function getAllDestroy(){
-        
+        $this->database->query("SELECT * FROM areaprotect_areas WHERE destroy=0");
     }
     
     public function close(){
