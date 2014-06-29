@@ -160,7 +160,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         }elseif($args[2] == "disable"){
                             if(!isset($args[3])){
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
-                    	    }elseif($this->MySQL->checkExists($args[3]) === fakse){
+                    	    }elseif($this->MySQL->checkExists($args[3]) === false){
                         	$sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
                     	    }else{
                     	    	$player = $sender->getName();
