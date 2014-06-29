@@ -23,7 +23,7 @@ class MySQL implements DataProvider{
         }
         
         $sql = $this->plugin->getResource("mysql.sql");
-        $this->database->query(streamv¥et_contents($sql));
+        $this->database->query(stream_get_contents($sql));
         
         $this->plugin->getServer()->getScheduler()->scheduleRepeatingTask(new PingMySQL($this->plugin, $this->database), 30*20);
         $this->plugin->getLogger()->info("Connected to Database successfully!");
@@ -41,10 +41,10 @@ class MySQL implements DataProvider{
         $this->pvp = $pvp;
         $this->build = $build;
         $this->destroy = $destroy;
-        $this->database->query("INSERT INTO areaprotect_areas (owner, name, x1, y1, z1, x2, y2, z2, pvp, build, destroy) VALUES ('".$this->owner."', ".$this->name.", ".$this->x1.", "$this->y1", ".$this->z1.", ".$this->x2.", ".$this->y2.", ".$this->z2.", ".$this->pvp.", ".$this->build.", ".$this->destroy.")");
+        $this->database->query("INSERT INTO areaprotect_areas (owner, name, x1, y1, z1, x2, y2, z2, pvp, build, destroy) VALUES ('".$this->owner."', ".$this->name.", ".$this->x1.", ".$this->y1.", ".$this->z1.", ".$this->x2.", ".$this->y2.", ".$this->z2.", ".$this->pvp.", ".$this->build.", ".$this->destroy.")");
     }
     
-    public function checkExists($args[1], $args[3]){ //I think Ill need to change this a little but hopefully not
+    public function checkExists($area){
         $this->area1 = $args[1];
         $this->area2 = $args[3];
         if(isset($this->area1)){
@@ -57,7 +57,7 @@ class MySQL implements DataProvider{
     
     public function checkOwner($area){
         $this->area = $area;
-        $this->database->query("SELECT :owner FROM areaprotect_areas WHERE name=".$this->area); //Not 100% sure how to do this
+        $this->database->query("SELECT owner FROM areaprotect_areas WHERE name=".$this->area);
     }
     
     public function deleteArea($area){
