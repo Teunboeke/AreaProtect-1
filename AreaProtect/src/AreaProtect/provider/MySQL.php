@@ -4,6 +4,7 @@ namespace AreaProtect\provider;
 
 use AreaProtect\Main;
 use AreaProtect\task\PingMySQL;
+use AreaProtect\provider\DataProvider;
 
 class MySQL implements DataProvider{
     protected $plugin;
