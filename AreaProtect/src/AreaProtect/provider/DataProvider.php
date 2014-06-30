@@ -39,6 +39,8 @@ interface DataProvider{
 	public function getAllBuild();
 	
 	public function getAllDestroy();
+	
+	public function getPositions($area);
 
 	public function close();
 }
