@@ -123,6 +123,10 @@ class MySQL implements DataProvider{
         $this->database->query("SELECT * FROM areaprotect_areas WHERE destroy=0");
     }
     
+    public function getPositions($area){
+        //TODO Return Positions
+    }
+    
     public function close(){
         $this->database->close();
     }
