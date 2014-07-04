@@ -34,11 +34,19 @@ interface DataProvider{
 	
 	public function disableDestroy($area);
 	
+	public function checkInteract($area);
+	
+	public function enableInteract($area);
+	
+	public function disableInteract($area);
+	
 	public function getAllPVP();
 	
 	public function getAllBuild();
 	
 	public function getAllDestroy();
+	
+	public function getAllInteract();
 	
 	public function getPositions($area);
 
