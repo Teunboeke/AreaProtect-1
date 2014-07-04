@@ -2,6 +2,8 @@
 
 namespace AreaProtect\provider;
 
+use pocketmine\plugin\PluginLoader;
+
 use AreaProtect\Main;
 use AreaProtect\task\PingMySQL;
 use AreaProtect\provider\DataProvider;
@@ -20,6 +22,7 @@ class MySQL implements DataProvider{
         $this->database = new \mysqli($host, $username, $password, $database, $port);
         if($this->database->connect_error){
             $this->plugin->getLogger()->critical("Unable to connect to Database!");
+            $this->plugin->disablePlugin(Main $plugin);
             return;
         }
         
@@ -59,6 +62,7 @@ class MySQL implements DataProvider{
     public function checkOwner($area){
         $this->area = $area;
         $this->database->query("SELECT owner FROM areaprotect_areas WHERE name=".$this->area);
+        return $owner;
     }
     
     public function deleteArea($area){
@@ -111,6 +115,21 @@ class MySQL implements DataProvider{
         $this->database->query("UPDATE areaprotect_areas SET destroy=0 WHERE name=".$this->area);
     }
     
+    public function checkInteract($area){
+        $this->area = $area;
+        $this->database->query("SELECT interact FROM areaprotect_areas WHERE name=".$this->area);
+    }
+    
+    public function enableInteract($area){
+        $this->area = $area;
+        $this->database->query("UPDATE areaprotect_areas SET interact=1 WHERE name=".$this->area);
+    }
+    
+    public function disableInteract($area){
+        $this->area = $area;
+        $this->database->query("UPDATE areaprotect_areas SET interact=0 WHERE name=".$this->area);
+    }
+    
     public function getAllPVP(){
         $this->database->query("SELECT * FROM areaprotect_areas WHERE pvp=0");
     }
@@ -123,8 +142,14 @@ class MySQL implements DataProvider{
         $this->database->query("SELECT * FROM areaprotect_areas WHERE destroy=0");
     }
     
+    public function getAllInteract(){
+        $this->database->query("SELECT * FROM areaprotect_areas WHERE interact=0");
+    }
+    
     public function getPositions($area){
-        //TODO Return Positions
+        $this->area = $area;
+        $this->database->query("SELECT x, y, z FROM areaprotect_areas WHERE name=".$this->area);
+        return $x, $y, $z;
     }
     
     public function close(){
