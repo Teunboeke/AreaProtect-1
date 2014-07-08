@@ -14,14 +14,14 @@ use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\Player;
 
-use AreaProtect\provider\MySQL;
+use AreaProtect\provider\SQLite;
 
 class Main extends PluginBase implements Listener, CommandExecutor{
     public function onEnable(){
     	$this->saveDefaultConfig();
         $this->getResource("config.yml");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->MySQL = new MySQL($this);
+        $this->database = new SQLite($this);
         $this->getLogger()->info("AreaProtect Loaded!");
     }
     
@@ -66,7 +66,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 		            }else{
 		                $destroy = "0";
 		            }
-		            $this->MySQL->createArea($owner, $name, $x1, $y1, $z1, $x2, $y2, $z2, $pvp, $build, $destroy);
+		            $this->database->createArea($owner, $name, $x1, $y1, $z1, $x2, $y2, $z2, $pvp, $build, $destroy);
 		            $sender->sendMessage("[AreaProtect] Your area has been created!");
 		            return true;
                     	}elseif(isset($z2)){
@@ -86,16 +86,16 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         return true;
                     }else{
 			$area = $args[1];
-			if($this->MySQL->checkExists($area) === false){
+			if($this->database->checkExists($area) === false){
 			    $sender->sendMessage("[AreaProtect] Unable to find the area" . $area . "!");
 			    return true;
 			}else{
 			    $player = $sender->getName();
 			    $area = $args[1];
-			    $owner = $this->MySQL->checkOwner($area);
+			    $owner = $this->database->checkOwner($area);
 			    if($owner == $player){
 			        $area = $args[1];
-				$this->MySQL->deleteArea($area);
+				$this->database->deleteArea($area);
 				$sender->sendMessage("[AreaProtect] Your area has been deleted!");
 				return true;
 			    }else{
@@ -112,20 +112,20 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 				return true;
                     	    }else{
 				$area = $args[3];
-				if($this->MySQL->checkExists($area) === false){
+				if($this->database->checkExists($area) === false){
 				    $sender->sendMessage("[AreaProtect] Unable to find the area" . $area . "!");
 				    return true;
 				}else{
 				    $player = $sender->getName();
 				    $area = $args[3];
-				    $owner = $this->MySQL->checkOwner($area);
+				    $owner = $this->database->checkOwner($area);
 				    if($owner == $player){
-					$pvp = $this->MySQL->checkPVP($area);
+					$pvp = $this->database->checkPVP($area);
 					if($pvp === true){
 					    $sender->sendMessage("[AreaProtect] PvP is already enabled in " . $area . "!");
 					    return true;
 					}else{
-					    $this->MySQL->enablePVP($area);
+					    $this->database->enablePVP($area);
 					    $sender->sendMessage("[AreaProtect] PvP is now enabled in " . $area . "!");
 					    return true;
 					}
@@ -140,20 +140,20 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
                         	return true;
                     	    }else{
-				if($this->MySQL->checkExists($args[3]) === false){
+				if($this->database->checkExists($args[3]) === false){
 				    $sender->sendMessage("[AreaProtect] Unable to find the area" . $area . "!");
 				    return true;
 				}else{
 				    $player = $sender->getName();
 				    $area = $args[3];
-				    $owner = $this->MySQL->checkOwner($area);
+				    $owner = $this->database->checkOwner($area);
 				    if($owner == $player){
-				        $pvp = $this->MySQL->checkPVP($area);
+				        $pvp = $this->database->checkPVP($area);
 					if($pvp === false){
 					    $sender->sendMessage("[AreaProtect] PvP is already disabled in " . $args[3] . "!");
 					    return true;
 					}else{
-					    $this->MySQL->disablePVP($area);
+					    $this->database->disablePVP($area);
 					    $sender->sendMessage("[AreaProtect] PvP is now disabled in " . $args[3] . "!");
 					    return true;
 					}
@@ -173,20 +173,20 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 				$sender->sendMessage("[AreaProtect] You must specify an area name!");
 				return true;
                     	    }else{
-				if($this->MySQL->checkExists($args[3]) === false){
+				if($this->database->checkExists($args[3]) === false){
 				    $sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
 				    return true;
 				}else{
 				    $player = $sender->getName();
 				    $area = $args[3];
-				    $owner = $this->MySQL->checkOwner($area);
+				    $owner = $this->database->checkOwner($area);
 				    if($owner == $sender->getName()){
-					$build = $this->MySQL->checkBuild($area);
+					$build = $this->database->checkBuild($area);
 				    if($build === true){
 					$sender->sendMessage("[AreaProtect] Public building is already enabled in " . $args[3] . "!");
 					return true;
 				    }else{
-					$this->MySQL->enableBuild($area);
+					$this->database->enableBuild($area);
 					$sender->sendMessage("[AreaProtect] Public building is now enabled in " . $args[3] . "!");
 				        return true;
 				    }
@@ -201,20 +201,20 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 				$sender->sendMessage("[AreaProtect] You must specify an area name!");
 				return true;
                     	    }else{
-				if($this->MySQL->checkExists($args[3]) === false){
+				if($this->database->checkExists($args[3]) === false){
 				    $sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
 				    return true;
 				}else{
 				    $player = $sender->getName();
 				    $area = $args[3];
-				    $owner = $this->MySQL->checkOwner($area);
+				    $owner = $this->database->checkOwner($area);
 				    if($owner == $player){
-					$build = $this->MySQL->checkBuild($area);
+					$build = $this->database->checkBuild($area);
 					if($build === false){
 					    $sender->sendMessage("[AreaProtect] Public building is already disabled in " . $args[3] . "!");
 					    return true;
 					}else{
-					    $this->MySQL->disableBuild($area);
+					    $this->database->disableBuild($area);
 					    $sender->sendMessage("[AreaProtect] Public building is now disabled in " . $args[3] . "!");
 					    return true;
 					}
@@ -234,20 +234,20 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
                         	return true;
                     	    }else{
-				if($this->MySQL->checkExists($args[3]) === false){
+				if($this->database->checkExists($args[3]) === false){
 				    $sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
 				    return true;
 				}else{
 				    $player = $semder->getName();
 				    $area = $args[3];
-				    $owner = $this->MySQL->checkOwner($area);
+				    $owner = $this->database->checkOwner($area);
 				    if($owner == $player){
-					$destroy = $this->MySQL->checkDestroy($area);
+					$destroy = $this->database->checkDestroy($area);
 					if($destroy === true){
 					    $sender->sendMessage("[AreaProtect] Public destruction is already enabled in " . $args[3] . "!");
 					    return true;
 					}else{
-					    $this->MySQL->enableDestroy($area);
+					    $this->database->enableDestroy($area);
 					    $sender->sendMessage("[AreaProtect] Public destruction is now enabled in " . $args[3] . "!");
 					    return true;
 					}
@@ -262,19 +262,19 @@ class Main extends PluginBase implements Listener, CommandExecutor{
                         	$sender->sendMessage("[AreaProtect] You must specify an area name!");
                         	return true;
                     	    }else{
-				if($this->MySQL->checkExists($args[3]) === false){
+				if($this->database->checkExists($args[3]) === false){
 				    $sender->sendMessage("[AreaProtect] Unable to find the area" . $args[3] . "!");
 				    return true;
 				}else{
 				    $player = $sender->getName();
 				    $area = $args[3];
-				    $owner = $this->MySQL->checkOwner($area);
+				    $owner = $this->database->checkOwner($area);
 				    if($owner == $sender->getName()){
-					$destroy = $this->MySQL->checkDestroy($area);
+					$destroy = $this->database->checkDestroy($area);
 					if($destroy === false){
 					    $sender->sendMessage("[AreaProtect] Public destruction is already disabled in " . $args[3] . "!");
 					}else{
-					    $this->MySQL->disableDestroy($area);
+					    $this->database->disableDestroy($area);
 					    $sender->sendMessage("[AreaProtect] Public destruction is now disabled in " . $args[3] . "!");
 					    return true;
 					}
@@ -318,9 +318,9 @@ class Main extends PluginBase implements Listener, CommandExecutor{
      */
     public function onBuild(BlockPlaceEvent $event){
     	$player = $event->getPlayer();
-    	foreach($this->MySQL->getAllBuild() as $area){
-    	    $owner = $this->MySQL->checkOwner($area);
-    	    $this->MySQL->getPositions($area);
+    	foreach($this->database->getAllBuild() as $area){
+    	    $owner = $this->database->checkOwner($area);
+    	    $this->database->getPositions($area);
     	    if($player->getX() >= $x1 and $player->getX() <= $x2 and $player->getY() >= $y1 and $player->getY() <= $y2 and $player->getZ() >= $z1 and $player->getZ() <= $z2 and $owner != $player->getName()){
     	        $player->sendMessage("[AreaProtect] You do not have permission to do that here!");
     	        $event->setCancelled(true);
@@ -336,9 +336,9 @@ class Main extends PluginBase implements Listener, CommandExecutor{
      */
     public function onDestroy(BlockBreakEvent $event){
     	$player = $event->getPlayer();
-    	foreach($this->MySQL->getAllDestroy() as $area){
-    	    $owner = $this->MySQL->checkOwner($area);
-    	    $this->MySQL->getPositions($area);
+    	foreach($this->database->getAllDestroy() as $area){
+    	    $owner = $this->database->checkOwner($area);
+    	    $this->database->getPositions($area);
     	    if($player->getX() >= $x1 and $player->getX() <= $x2 and $player->getY() >= $y1 and $player->getY() <= $y2 and $player->getZ() >= $z1 and $player->getZ() <= $z2 and $owner != $player->getName()){
     	    	$player->sendMessage("[AreaProtect] You do not have permission to do that here!");
     	    	$event->setCancelled(true);
@@ -354,9 +354,9 @@ class Main extends PluginBase implements Listener, CommandExecutor{
      */
     public function onInteract(PlayerInteractEvent $event){
     	$player = $event->getPlayer();
-    	foreach($this->MySQL->getAllInteract() as $area){
-    	    $owner = $this->MySQL->checkOwner($area);
-    	    $this->MySQL->getPositions($area);
+    	foreach($this->database->getAllInteract() as $area){
+    	    $owner = $this->database->checkOwner($area);
+    	    $this->database->getPositions($area);
     	    if($player->getX() >= $x1 and $player->getX() <= $x2 and $player->getY() >= $y1 and $player->getY() <= $y2 and $player->getZ() >= $z1 and $player->getZ() <= $z2 and $owner != $player->getName()){
     	    	$player->sendMessage("[AreaProtect] You do not have permission to do that here!");
     	    	$event->setCancelled(true);
@@ -365,7 +365,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
     }
     
     public function onDisable(){
-    	$this->MySQL->close();
+    	$this->database->close();
         $this->getLogger()->info("AreaProtect Unloaded!");
     }
 }
