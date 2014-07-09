@@ -8,9 +8,9 @@ use AreaProtect\Main;
 use AreaProtect\provider\DataProvider;
 
 class SQLite implements DataProvider{
-    public function createArea($owner, $name, $x1, $y1, $z1, $x2, $y2, $z2, $pvp, $build, $destroy){
-        
-    }
+	public function createArea($owner, $name, $x1, $y1, $z1, $x2, $y2, $z2, $pvp, $build, $destroy){
+		
+	}
 
 	public function checkExists($area){
 	    
