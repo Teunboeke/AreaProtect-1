@@ -1,18 +1,13 @@
 name: AreaProtect
 main: AreaProtect\Main
-version: 1.0.0-beta
-api: [1.0.0]
+version: 1.0.0
+api: [1.1.0]
 
 load: POSTWORLD
 authors: [Comedyman937]
-description: Protect PocketMine-MP Areas!
+description: Protect your worlds from griefers!
 
-commands:
-    areaprotect:
-        description: "Protect Your Area!"
-        usage: "/areaprotect <pos1|pos2|protect|flag|delete> [name]"
-        permission: areaprotect.command.areaprotect
 permissions:
-    areaprotect.command.areaprotect:
-        description: "Allows players to protect areas"
-        default: true
+    areaprotect.action.edit:
+        description: "Allows players to edit worlds!"
+        default: op
