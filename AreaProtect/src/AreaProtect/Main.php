@@ -35,7 +35,7 @@ class Main extends PluginBase implements Listener{
 		foreach($this->worlds["Worlds"] as $world){
 			if($player->hasPermission("areaprotect.action.edit")){
 				return true;
-			}elseif($player->level->getLevel() == $world){
+			}elseif($player->getLevel()->getName() == $world){
 				$player->sendMessage("[AreaProtect] You do not have permission to do that here!");
 				$event->setCancelled();
 			}
@@ -53,7 +53,7 @@ class Main extends PluginBase implements Listener{
 		foreach($this->worlds["Worlds"] as $world){
 			if($player->hasPermission("areaprotect.action.edit")){
 				return true;
-			}elseif($player->level->getLevel() == $world){
+			}elseif($player->getLevel()->getName() == $world){
 				$player->sendMessage("[AreaProtect] You do not have permission to do that here!");
 				$event->setCancelled();
 			}
@@ -71,7 +71,7 @@ class Main extends PluginBase implements Listener{
 		foreach($this->worlds["Worlds"] as $world){
 			if($player->hasPermission("areaprotect.action.edit")){
 				return true;
-			}elseif($player->getLevel() == $world){
+			}elseif($player->getLevel()->getName() == $world){
 				$player->sendMessage("[AreaProtect] You do not have permission to do that here!");
 				$event->setCancelled();
 			}
